@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang = "en" dir = "ltr">
+  <head>
+    <meta charset = "utf-8">
+    <title>blog</title>
+    <!-- Bootstrap -->
+    <link rel = "stylesheet" href = "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity = "sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin = "anonymous">
+
+    <script src = "//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+    <link rel = "stylesheet" href = "//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type = "text/css" media = "screen" charset = "utf-8">
+
+    <!-- Custom CSS -->
+    <link rel = "stylesheet" href = "{% static 'css/blog.css' %}">
+
+    <!-- google font -->
+    <link href = "https://fonts.googleapis.com/css2?family = PT+Serif:ital@1&family = Source+Sans+Pro:ital,wght@1,200&display = swap" rel = "stylesheet">
+    <!--  <link href = "https://fonts.googleapis.com/icon?family = Material+Icons" rel = "stylesheet"> -->
+  </head>
+  <body class = "loader">
+
+    <nav class  = "navbar navbar-default techfont Custom-navbar">
+      <div class = "container">
+        <a class = "navbar-brand bigbrand" href = "{% url 'posts:post_list' %}">My Blog</a>
+        <a href = "{% url 'posts:about' %}">About</a>
+        <a href =  "https://www.github.com">Github</a>
+        <a href = "https://www.linkedin.com">LinkedIn</a>
+
+     <!--  <nav class = 'nav navbar-nav navbar right'> -->
+          {% if user.is_authenticated %}
+          <a href = "{% url 'posts:post_new' %}">New Post</a>
+          <a href = "{% url 'posts:post_draft_list' %}">Drafts</a>
+          <a href = "{% url 'logout' %}">Log Out</a>
+          <a>Welcome : {{user.username }}</a>
+          {% else %}
+          <a class = "nav navbar-right" href = "{% url 'login' %}"><span class = 'glyphicon glyphicon-user'>Login</span></a>
+          {% endif %}
+      <!--  </nav> -->
+      </div>
+    </nav>
+
+    <div class = "content container">
+      <div class = "row">
+        <div class = "col-md-8">
+          <div class = "blog_post">
+            {% block content %}
+
+            {% endblock %}
+          </div>
+        </div>
+      </div>
+    </div>
+ </body>
+</html>
